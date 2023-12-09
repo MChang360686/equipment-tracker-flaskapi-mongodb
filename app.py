@@ -13,13 +13,16 @@ def helloworld():
 
 @app.route('/people', methods=['GET', 'POST'])
 def getPeople():
-    return("Returns people")
+    if request.method == "GET":
+        return("Person Get")
+    elif request.method == "POST":
+        return("Returns people")
 
-@app.route('/equipment')
+@app.route('/equipment', methods=['GET', 'POST'])
 def getEquipment():
     return("Returns Equipment")
 
-@app.route('/people/')
+@app.route('/people/', methods=['GET', 'POST', 'PUT'])
 def getPerson():
     return("Returns specific person")
 
