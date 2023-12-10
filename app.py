@@ -14,7 +14,8 @@ def helloworld():
 @app.route('/people', methods=['GET', 'POST'])
 def getPeople():
     if request.method == "GET":
-        return("Person Get")
+        people = list(request.app.database["people"].find(limit=100))
+        return people
     elif request.method == "POST":
         return("Returns people")
 
