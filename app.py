@@ -1,23 +1,32 @@
 #!/usr/bin/python3
 
+import os
 from flask import Flask, jsonify, request
-import dotenv
+from dotenv import load_dotenv
 from pymongo import MongoClient
+from bson import json_util
+import json
 
 
 app = Flask(__name__)
+app.config["MONGO_URI"] = os.environ.get("DB_URI")
+
+url = os.environ.get("DB_URI")
+port = os.environ.get("PORT_NUM")
+
+client = MongoClient(url, port)
+
+db = client['test']
 
 @app.route('/')
 def helloworld():
-    return("Hello World")
+    people = list(db.get_collection("people").find())
+    return(json.loads(json_util.dumps(people)))
 
-@app.route('/people', methods=['GET', 'POST'])
+@app.route('/people', methods=['GET'])
 def getPeople():
-    if request.method == "GET":
-        people = list(request.app.database["people"].find(limit=100))
-        return people
-    elif request.method == "POST":
-        return("Returns people")
+    people = list(request.test["people"].find(limit=100))
+    return people
 
 @app.route('/equipment', methods=['GET', 'POST'])
 def getEquipment():

@@ -17,4 +17,4 @@ You must ask for <varName>.text
 
 
 if __name__ == '__main__':
-    getPeople('http://127.0.0.1:5000/')
+    getPeople('http://127.0.0.1:5000/people')
